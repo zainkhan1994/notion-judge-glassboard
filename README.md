@@ -1,8 +1,42 @@
 # 🏛️ Notion Judge's Glassboard
 
-*A submission for the [Notion MCP Challenge](https://dev.to/challenges/notion-2026-03-04).*
+*This is a submission for the [Notion MCP Challenge](https://dev.to/challenges/notion-2026-03-04).*
 
-A premium, cinematic **Evaluation OS** built to streamline and elevate the judging experience for the Notion MCP Challenge. With 180+ incredible submissions to evaluate across criteria like Originality, Complexity, and Practicality, the Glassboard transforms raw submission data into a highly aesthetic, two-stage React SPA — powered by live DEV.to API data and the Notion MCP.
+---
+
+## 🚀 What I Built
+
+I built the **Notion Judge's Glassboard** — a premium, cinematic "Evaluation OS" explicitly designed to streamline and elevate the judging experience for the Notion MCP Challenge.
+
+With over 180+ incredible submissions, evaluating every entry across multiple criteria (Originality, Complexity, Practicality) can become overwhelming. The Glassboard ingests live submission data (via DEV.to API & Notion MCP) and transforms it into a highly aesthetic, two-stage React SPA:
+
+1. **The Cinematic Hero:** A sleek, fully animated dark-mode landing page complete with floating ambient particles and interactive SVG badges that instantly make the project feel premium.
+2. **The Pastel Gallery:** A smooth, glassmorphism-inspired category dashboard that sorts submissions dynamically, surfacing read times, reaction counts, and direct links natively mapped to the actual DEV.to articles.
+
+This isn't just a basic tracker; it's a bespoke evaluation hub built to make the final judging process as impressive as the projects being evaluated.
+
+---
+
+## 🎥 Video Demo
+
+*(Insert your video link here showing the transition from the Hero page to the Dashboard and clicking on a card)*
+
+---
+
+## 💻 Show us the code
+
+The entire React/Vite front-end and Python data-ingestion pipeline is available here:
+*(Insert your GitHub repo link after pushing!)*
+
+---
+
+## 🧠 How I Used Notion MCP
+
+The true magic behind the Glassboard is its autonomous backend. Rather than hardcoding the 180+ projects or connecting directly to a rate-limited front-end API, I used the **Notion MCP (Model Context Protocol)** to turn my actual Notion Workspace into a headless CMS and evaluation engine:
+
+- **The Living Database:** Our central source of truth is [The Notion AI Challenge Database](https://www.notion.so/The-Notion-AI-Challenge-168be06607eb46e7a5518a6a1b686fc6?source=copy_link), which holds every DEV.to submission, reaction stat, and read-time metric.
+- **Hourly Autonomous Generation:** Every single hour, our AI agent spins up via the local Notion MCP to read the latest rows from that master Notion database. It dynamically queries for any new entries or updated stats, then instantly builds and pushes those individual glassmorphism React cards directly into the Glassboard UI.
+- **Two-Way Evaluation Sync:** When a judge reviews a project and marks it with an implementation score (Originality, Practicality, Complexity), that data safely hits a `securityHumanInLoop: true` verification flag and writes safely back into the exact same Notion Database via MCP—enabling full remote collaboration for multiple judges without ever showing them a boring spreadsheet.
 
 ---
 
@@ -13,25 +47,6 @@ A premium, cinematic **Evaluation OS** built to streamline and elevate the judgi
 
 ### Pastel Gallery Dashboard
 ![Pastel Gallery Dashboard](./image.png)
-
----
-
-## 🚀 What I Built
-
-The **Notion Judge's Glassboard** is a bespoke evaluation hub designed to make the final judging process as impressive as the projects being evaluated. It is composed of two distinct experiences:
-
-1. **The Cinematic Hero** — A sleek, fully animated dark-mode landing page with floating ambient particles and interactive SVG badges that make the project feel instantly premium.
-2. **The Pastel Gallery** — A smooth, glassmorphism-inspired category dashboard that dynamically sorts submissions, surfacing read times, reaction counts, and direct links natively mapped to actual DEV.to articles.
-
----
-
-## 🧠 How I Used Notion MCP
-
-The architecture deeply leverages the **Notion MCP (Model Context Protocol)** as the autonomous backend state for AI agents throughout the build:
-
-- **Autonomous DB Generation** — Antigravity and Claude agents hooked into Notion MCP via `stdio` to spin up the master judging database without leaving the terminal.
-- **Dynamic Ingestion Pipeline** — Python scripts query live DEV.to data, structure it, and sync it locally. At runtime, MCP acts as the bridge connecting the React dashboards with structured Notion metric tables, enabling rapid scaling without hitting API bottlenecks during heavy judging workflows.
-- **Human-in-the-Loop Validation** — All submissions ingested via agents carry a `securityHumanInLoop: true` flag, guaranteeing that final scores pushed back through MCP are authenticated by valid evaluators.
 
 ---
 
