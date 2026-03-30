@@ -1,0 +1,458 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Sora:wght@300;400;500&display=swap');
+
+.hero-wrapper {
+  --black: #080808;
+  --white: #f5f4f0;
+  --gray: #888;
+  --light-gray: #bbb;
+  --gold: #c9a84c;
+  --gold-glow: rgba(201,168,76,0.18);
+
+  position: fixed;
+  inset: 0;
+  background: var(--black);
+  color: var(--white);
+  font-family: 'Sora', sans-serif;
+  overflow-y: auto;
+  overflow-x: hidden;
+  z-index: 9999; /* Sit on top of everything */
+}
+
+/* ─── GRAIN OVERLAY ─────────────────────────── */
+.hero-wrapper::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  opacity: 0.035;
+  pointer-events: none;
+  z-index: 999;
+}
+
+/* ─── PARTICLE CANVAS ────────────────────────── */
+#particles {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ─── HERO ───────────────────────────────────── */
+.hero-section {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 24px;
+  z-index: 1;
+}
+
+/* ─── TOP LABEL ──────────────────────────────── */
+.top-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gray);
+  margin-bottom: 52px;
+  opacity: 0;
+  animation: fadeUp 0.8s ease 0.2s forwards;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.top-label::before, .top-label::after {
+  content: '';
+  display: inline-block;
+  width: 32px;
+  height: 1px;
+  background: #333;
+}
+
+/* ─── HEADLINE ───────────────────────────────── */
+.headline {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(42px, 7vw, 88px);
+  line-height: 1.0;
+  text-align: center;
+  letter-spacing: -0.02em;
+  color: var(--white);
+  margin-bottom: 20px;
+  opacity: 0;
+  animation: fadeUp 0.9s ease 0.4s forwards;
+  max-width: 800px;
+}
+.headline em {
+  font-style: italic;
+  color: var(--light-gray);
+}
+
+.subline {
+  font-size: 14px;
+  color: var(--gray);
+  font-weight: 300;
+  letter-spacing: 0.02em;
+  margin-bottom: 72px;
+  text-align: center;
+  opacity: 0;
+  animation: fadeUp 0.9s ease 0.55s forwards;
+}
+.subline span {
+  color: var(--light-gray);
+  font-weight: 400;
+}
+
+/* ─── BADGE ROW ──────────────────────────────── */
+.badge-row {
+  display: flex;
+  gap: clamp(40px, 8vw, 120px);
+  align-items: flex-start;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 80px;
+  opacity: 0;
+  animation: fadeUp 1s ease 0.7s forwards;
+}
+
+/* ─── BADGE CONTAINER ────────────────────────── */
+.badge-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+  cursor: pointer;
+}
+
+.badge-svg-wrap {
+  position: relative;
+  width: 240px;
+  height: 240px;
+  flex-shrink: 0;
+}
+
+.badge-svg-wrap svg {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 0 0px transparent);
+  transition: filter 0.4s ease;
+}
+
+/* Boxes badge hover */
+.badge-wrap.boxes:hover .badge-svg-wrap svg {
+  filter: drop-shadow(0 0 28px rgba(200,200,200,0.22));
+}
+
+/* Trophy badge hover */
+.badge-wrap.trophy:hover .badge-svg-wrap svg {
+  filter: drop-shadow(0 0 32px rgba(201,168,76,0.4));
+}
+
+.badge-label {
+  text-align: center;
+}
+.badge-label-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 19px;
+  color: var(--white);
+  margin-bottom: 5px;
+  letter-spacing: -0.01em;
+}
+.badge-label-sub {
+  font-size: 11px;
+  color: var(--gray);
+  font-family: 'DM Mono', monospace;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.badge-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 22px;
+  border-radius: 100px;
+  font-size: 12px;
+  font-family: 'DM Mono', monospace;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  border: 1px solid;
+  cursor: pointer;
+  background: transparent;
+}
+
+.badge-wrap.boxes .badge-cta {
+  border-color: #333;
+  color: var(--light-gray);
+}
+.badge-wrap.boxes .badge-cta:hover {
+  background: rgba(255,255,255,0.06);
+  border-color: #555;
+  color: white;
+}
+
+.badge-wrap.trophy .badge-cta {
+  border-color: rgba(201,168,76,0.4);
+  color: var(--gold);
+}
+.badge-wrap.trophy .badge-cta:hover {
+  background: rgba(201,168,76,0.08);
+  border-color: var(--gold);
+}
+
+/* ─── DIVIDER ────────────────────────────────── */
+.stat-row {
+  display: flex;
+  gap: 48px;
+  align-items: center;
+  opacity: 0;
+  animation: fadeUp 1s ease 1s forwards;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+.stat-num {
+  font-family: 'DM Serif Display', serif;
+  font-size: 32px;
+  color: var(--white);
+  letter-spacing: -0.03em;
+}
+.stat-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gray);
+}
+
+.stat-divider {
+  width: 1px;
+  height: 36px;
+  background: #222;
+}
+
+/* ─── SCROLL HINT ────────────────────────────── */
+.scroll-hint {
+  position: absolute;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  opacity: 0;
+  animation: fadeIn 1s ease 1.6s forwards;
+}
+.scroll-hint span {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #444;
+}
+.scroll-line {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, #444, transparent);
+  animation: scrollPulse 2s ease-in-out infinite;
+}
+
+/* ─── ANIMATIONS ─────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.3; transform: scaleY(1); }
+  50%       { opacity: 1;   transform: scaleY(1.15); }
+}
+
+/* BOX-SPECIFIC ANIMATIONS */
+@keyframes lidFloat {
+  0%, 100% { transform: translateY(0) rotate(-2deg); }
+  50%       { transform: translateY(-6px) rotate(2deg); }
+}
+@keyframes boxBob {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-3px); }
+}
+@keyframes chipFloat1 {
+  0%, 100% { transform: translate(0,0) rotate(0deg); opacity: 0.7; }
+  33%       { transform: translate(3px,-5px) rotate(20deg); opacity: 1; }
+  66%       { transform: translate(-2px,-3px) rotate(-10deg); opacity: 0.8; }
+}
+@keyframes chipFloat2 {
+  0%, 100% { transform: translate(0,0) rotate(0deg); opacity: 0.5; }
+  40%       { transform: translate(-4px,-6px) rotate(-25deg); opacity: 0.9; }
+  70%       { transform: translate(2px,-4px) rotate(15deg); opacity: 0.6; }
+}
+@keyframes ringRotate {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+@keyframes ringRotateReverse {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(-360deg); }
+}
+
+/* TROPHY-SPECIFIC ANIMATIONS */
+@keyframes trophyGlow {
+  0%, 100% { opacity: 0.6; }
+  50%       { opacity: 1; }
+}
+@keyframes fragmentOrbit1 {
+  0%   { transform: translate(0,0) rotate(0deg); opacity: 0.8; }
+  25%  { transform: translate(5px,-4px) rotate(45deg); opacity: 1; }
+  50%  { transform: translate(3px,-8px) rotate(90deg); opacity: 0.7; }
+  75%  { transform: translate(-2px,-5px) rotate(135deg); opacity: 0.9; }
+  100% { transform: translate(0,0) rotate(180deg); opacity: 0.8; }
+}
+@keyframes fragmentOrbit2 {
+  0%   { transform: translate(0,0) rotate(0deg); opacity: 0.6; }
+  33%  { transform: translate(-6px,-3px) rotate(-60deg); opacity: 1; }
+  66%  { transform: translate(-4px,-7px) rotate(-120deg); opacity: 0.7; }
+  100% { transform: translate(0,0) rotate(-180deg); opacity: 0.6; }
+}
+@keyframes fragmentOrbit3 {
+  0%   { transform: translate(0,0); opacity: 0.5; }
+  50%  { transform: translate(4px,-6px); opacity: 1; }
+  100% { transform: translate(0,0); opacity: 0.5; }
+}
+@keyframes spotlightSweep {
+  0%   { opacity: 0; }
+  20%  { opacity: 0.35; }
+  60%  { opacity: 0.15; }
+  100% { opacity: 0.25; }
+}
+@keyframes pulseRing {
+  0%, 100% { stroke-opacity: 0.6; }
+  50%       { stroke-opacity: 1; }
+}
+
+/* ─── BOXES BADGE SVG ANIMATIONS ─────────────── */
+.badge-wrap.boxes .lid-group {
+  transform-origin: 50% 50%;
+  animation: lidFloat 3s ease-in-out infinite;
+}
+.badge-wrap.boxes .box-main {
+  transform-origin: 50% 50%;
+  animation: boxBob 4s ease-in-out infinite 0.5s;
+}
+.badge-wrap.boxes .chip1 {
+  animation: chipFloat1 2.8s ease-in-out infinite;
+}
+.badge-wrap.boxes .chip2 {
+  animation: chipFloat2 3.2s ease-in-out infinite 0.4s;
+}
+.badge-wrap.boxes .chip3 {
+  animation: chipFloat1 2.5s ease-in-out infinite 0.8s;
+}
+.badge-wrap.boxes .outer-ring {
+  transform-origin: 120px 120px;
+  animation: ringRotate 20s linear infinite;
+}
+.badge-wrap.boxes .inner-ring {
+  transform-origin: 120px 120px;
+  animation: ringRotateReverse 15s linear infinite;
+}
+
+/* HOVER: boxes */
+.badge-wrap.boxes:hover .lid-group {
+  animation: lidFloat 1s ease-in-out infinite;
+}
+.badge-wrap.boxes:hover .chip1 { animation: chipFloat1 1s ease-in-out infinite; }
+.badge-wrap.boxes:hover .chip2 { animation: chipFloat2 1.1s ease-in-out infinite; }
+.badge-wrap.boxes:hover .chip3 { animation: chipFloat1 0.9s ease-in-out infinite 0.2s; }
+
+/* ─── TROPHY BADGE SVG ANIMATIONS ────────────── */
+.badge-wrap.trophy .trophy-body {
+  animation: trophyGlow 3s ease-in-out infinite;
+}
+.badge-wrap.trophy .frag1 {
+  transform-origin: 110px 65px;
+  animation: fragmentOrbit1 4s ease-in-out infinite;
+}
+.badge-wrap.trophy .frag2 {
+  transform-origin: 135px 60px;
+  animation: fragmentOrbit2 3.5s ease-in-out infinite 0.5s;
+}
+.badge-wrap.trophy .frag3 {
+  transform-origin: 90px 58px;
+  animation: fragmentOrbit3 5s ease-in-out infinite 1s;
+}
+.badge-wrap.trophy .frag4 {
+  transform-origin: 148px 80px;
+  animation: fragmentOrbit1 4.5s ease-in-out infinite 0.3s;
+}
+.badge-wrap.trophy .frag5 {
+  transform-origin: 85px 80px;
+  animation: fragmentOrbit2 3.8s ease-in-out infinite 0.7s;
+}
+.badge-wrap.trophy .spotlight {
+  animation: spotlightSweep 4s ease-in-out infinite;
+}
+.badge-wrap.trophy .outer-ring {
+  transform-origin: 120px 120px;
+  animation: ringRotate 25s linear infinite;
+}
+.badge-wrap.trophy .pulse-ring {
+  animation: pulseRing 2.5s ease-in-out infinite;
+}
+
+/* HOVER: trophy */
+.badge-wrap.trophy:hover .frag1 { animation: fragmentOrbit1 1.2s ease-in-out infinite; }
+.badge-wrap.trophy:hover .frag2 { animation: fragmentOrbit2 1s ease-in-out infinite; }
+.badge-wrap.trophy:hover .frag3 { animation: fragmentOrbit3 1.4s ease-in-out infinite; }
+.badge-wrap.trophy:hover .frag4 { animation: fragmentOrbit1 1.1s ease-in-out infinite 0.2s; }
+.badge-wrap.trophy:hover .frag5 { animation: fragmentOrbit2 1.3s ease-in-out infinite 0.1s; }
+.badge-wrap.trophy:hover .trophy-body { filter: drop-shadow(0 0 12px rgba(201,168,76,0.6)); }
+
+/* ─── FOOTER BAR ─────────────────────────────── */
+.footer-bar {
+  position: relative;
+  z-index: 1;
+  border-top: 1px solid #151515;
+  padding: 20px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.footer-left {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: #333;
+  letter-spacing: 0.1em;
+}
+.footer-right {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: #333;
+  letter-spacing: 0.05em;
+}
+
+/* ─── GOLD ACCENT LINE ───────────────────────── */
+.gold-line {
+  width: 1px;
+  height: 60px;
+  background: linear-gradient(to bottom, transparent, var(--gold), transparent);
+  opacity: 0.3;
+  margin: 0 auto 20px;
+  display: block;
+  animation: fadeIn 1s ease 1.2s both;
+}
+
+@keyframes rippleOut {
+  to { transform: translate(-50%,-50%) scale(30); opacity: 0; }
+}
