@@ -7,14 +7,7 @@ A premium, cinematic **Evaluation OS** built to streamline and elevate the judgi
 ---
 
 ## ✨ Screenshots
-
-### Cinematic Hero Landing Page
-![Hero Landing Page](./src/assets/hero.png)
-
-
 <img width="771" height="854" alt="image" src="https://github.com/user-attachments/assets/efe9ca3d-679f-4cdb-be9b-7d49faf6d0cf" />
-
-
 ### Pastel Gallery Dashboard
 ![Pastel Gallery Dashboard](./image.png)
 
