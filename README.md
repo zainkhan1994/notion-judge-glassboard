@@ -8,6 +8,10 @@ A premium, cinematic **Evaluation OS** built to streamline and elevate the judgi
 
 ## ✨ Screenshots
 
+
+<img width="936" height="567" alt="image" src="https://github.com/user-attachments/assets/f1f38d5f-eeaf-4587-b50a-adcc8f94b814" />
+
+
 ### Cinematic Hero Landing Page
 ![Hero Landing Page](./src/assets/hero.png)
 
